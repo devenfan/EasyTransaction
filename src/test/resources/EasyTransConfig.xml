@@ -5,10 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	
-	<context:component-scan base-package="com.yiqiniu.easytrans"></context:component-scan>
+	<import resource="classpath:/BasicEasyTransBeans.xml"/>
+	
+	<!-- Following beans can be replaced with your own implement -->
 	
 	<bean id="easyTransConfig" class="com.yiqiniu.easytrans.config.impl.PropertiesEasyTransConfigImpl"></bean>
-	
 	
 	<!-- If your service has only one datasource,you can use the following datasouce selector -->
 	<!-- <bean id="dataSourceSelector" class="com.yiqiniu.easytrans.datasource.impl.SingleDataSourceSelector">
@@ -71,11 +72,6 @@
 		
 			<bean id="transLogJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 				<property name="dataSource" ref="transLog" />
-			</bean>
-				
-			<!-- 数据源事务管理器，提供对单个javax.sql.DataSource事务管理，用于Spring JDBC、iBATIS等框架的事务管理 -->
-			<bean id="transLogTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-				<property name="dataSource" ref="transLog"/>
 			</bean>
 	
 </beans>

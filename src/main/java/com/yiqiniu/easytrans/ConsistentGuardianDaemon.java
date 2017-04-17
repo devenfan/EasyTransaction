@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.yiqiniu.easytrans.config.EasyTransConifg;
 import com.yiqiniu.easytrans.log.TransactionLogReader;
@@ -23,7 +22,6 @@ import com.yiqiniu.easytrans.master.EasyTransMasterSelector;
 import com.yiqiniu.easytrans.protocol.IdempotentTypeDeclare.TransactionId;
 import com.yiqiniu.easytrans.util.NamedThreadFactory;
 
-@Component
 public class ConsistentGuardianDaemon {
 	
 	@Resource
@@ -59,7 +57,7 @@ public class ConsistentGuardianDaemon {
 
 				try {
 					master.await();
-					if (!master.hasLeaserShip()) {
+					if (!master.hasLeaderShip()) {
 						mapRetryInfo.clear();
 						return;
 					}
@@ -99,7 +97,7 @@ public class ConsistentGuardianDaemon {
 							locationId = null;
 						}
 						
-					} while (collections != null && collections.size() != 0	&& master.hasLeaserShip());
+					} while (collections != null && collections.size() != 0	&& master.hasLeaderShip());
 				} catch(InterruptedException e){
 					LOG.warn("Interrupte recived,end consisten guadian");
 					

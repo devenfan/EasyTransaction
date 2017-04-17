@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.yiqiniu.easytrans.EasyTransSynchronizer;
 import com.yiqiniu.easytrans.LogProcessor;
@@ -27,7 +26,6 @@ import com.yiqiniu.easytrans.queue.producer.EasyTransMsgPublishResult;
 import com.yiqiniu.easytrans.serialization.ObjectSerializer;
 import com.yiqiniu.easytrans.util.ReflectUtil;
 
-@Component
 public class ReliableMessageMethodExecutor implements EasyTransExecutor,LogProcessor,DemiLogEventHandler {
 
 	@Resource
@@ -96,7 +94,7 @@ public class ReliableMessageMethodExecutor implements EasyTransExecutor,LogProce
 			messageSentContent.setLeftDemiConentId(leftContent.getcId());
 			messageSentContent.setRemoteMessageId(send.getMessageId());
 			logCtx.getLogCache().cacheLog(messageSentContent);
-			LOG.info("Compensable method executed:" + businessIdentifer);
+			LOG.info("Reliable message sent:" + businessIdentifer);
 			return true;
 		}else{
 			//rollback
